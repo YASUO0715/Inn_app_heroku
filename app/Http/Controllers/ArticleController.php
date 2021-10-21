@@ -106,7 +106,7 @@ class ArticleController extends Controller
             // commit
             DB::commit();
         } catch (\Exception $e) {
-            dd($paths);
+            
             // file rollback(delete files)
             if (!empty($paths)) {
                 foreach ($paths as $path) {
