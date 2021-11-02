@@ -160,8 +160,8 @@
                             </td>
                             <td><input class="form-control mr-sm-2" type="search" name="caption" placeholder="宿名">
                             </td>
-                            <td><input class="form-control mr-sm-2" type="search" name="name" placeholder="受け入れ可能状況">
-                            </td>
+                            {{-- <td><input class="form-control mr-sm-2" type="search" name="name" placeholder="受け入れ可能状況">
+                            </td> --}}
                             <td><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </td>
                         </form>
