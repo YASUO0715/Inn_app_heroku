@@ -16,7 +16,12 @@ class Article extends Model
         'info',
         'category_id'
     ];
-    
+
+    public function user()
+    {
+        return $this->hasOne(\App\Models\User::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(\App\Models\Category::class);

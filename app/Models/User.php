@@ -46,4 +46,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(IdentityProvider::class);
     }
+
+    public function article()
+    {
+        return $this->hasOne(\App\Models\Article::class);
+    }
+
 }
