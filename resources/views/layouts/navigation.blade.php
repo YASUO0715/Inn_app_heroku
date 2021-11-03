@@ -162,7 +162,7 @@
                             </td>
                             <td>
                                 <select name="status">
-                                    <option type="search" value="本日の対応状況" selected disabled>本日の対応状況</option>
+                                    <option type="search" value="本日の空室" selected disabled>本日の空室</option>
                                     <option type="search" value="◎">◎</option>
                                 </select>
                             </td>
