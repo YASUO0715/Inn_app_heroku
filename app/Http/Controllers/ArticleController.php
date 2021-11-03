@@ -28,20 +28,29 @@ class ArticleController extends Controller
     {
         $caption = $request->caption;
         $category = $request->category;
+        $status = $request->status;
 
         $query = Article::query();
-
+        
         if (!empty($caption)) {
+            
             $query->where('caption', 'like', '%' . $caption . '%');
         }
+
         if (!empty($category)) {
             $query->whereHas('category', function ($q) use ($category) {
                 $q->where('name', 'like', '%' . $category . '%');
             });
         }
 
+        if (!empty($status)) {
+            $query->whereHas('status', function ($q) use ($status) {
+                $q->where('name', 'like', '%' . $status . '%');
+            });
+        }
+
         $articles = $query->with('attachments')->paginate(30);
-        $articles->appends(compact('caption', 'category'));
+        $articles->appends(compact('caption', 'category','status'));
 
         // $articles = Article::all();
         return view('articles.index', compact('articles', 'caption'));

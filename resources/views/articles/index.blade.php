@@ -11,7 +11,7 @@
                     <img src="{{ $article->image_url }}" class="card-img-top">
                     <div class="card-title mx-3">
                         <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
-                            {{ $article->caption }}
+                            {{ $article->caption }} | 本日の空室 : {{ $article->status->name }}
                         </a>
                     </div>
                 </article>

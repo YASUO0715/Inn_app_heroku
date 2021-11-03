@@ -14,7 +14,8 @@ class Article extends Model
     protected $fillable = [
         'caption',
         'info',
-        'category_id'
+        'category_id',
+        'status_id'
     ];
 
     public function user()
@@ -22,14 +23,14 @@ class Article extends Model
         return $this->hasOne(\App\Models\User::class);
     }
 
-    public function category()
-    {
-        return $this->belongsTo(\App\Models\Category::class);
-    }
-
     public function status()
     {
         return $this->belongsTo(\App\Models\Status::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class);
     }
 
     public function attachments()

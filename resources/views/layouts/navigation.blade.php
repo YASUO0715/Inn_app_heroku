@@ -72,7 +72,7 @@
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -123,7 +123,7 @@
                             @csrf
                             <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
-                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                        this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-responsive-nav-link>
                         </form>
@@ -160,8 +160,12 @@
                             </td>
                             <td><input class="form-control mr-sm-2" type="search" name="caption" placeholder="宿名">
                             </td>
-                            {{-- <td><input class="form-control mr-sm-2" type="search" name="name" placeholder="受け入れ可能状況">
-                            </td> --}}
+                            <td>
+                                <select name="status">
+                                    <option type="search" value="本日の対応状況" selected disabled>本日の対応状況</option>
+                                    <option type="search" value="◎">◎</option>
+                                </select>
+                            </td>
                             <td><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </td>
                         </form>

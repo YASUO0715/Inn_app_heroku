@@ -26,7 +26,8 @@ class ArticleRequest extends FormRequest
         return [
             'caption' => 'required|string|max:255',
             'info' => 'required|string',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'status_id' => 'required'
         ];
         //追加したいかもしれない内容のチェック。上は仮置 getnameはルーティングの名前をとってくるということ。sail artisan route:listで出てくるやつと一致したら実行する。
         $route = $this->route()->getname();

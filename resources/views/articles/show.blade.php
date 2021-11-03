@@ -23,7 +23,7 @@
                     <div class="col-6">
                         <figcaption>
                             <h1>
-                                <b>{{ $article->caption }}</b>
+                                <b>{{ $article->caption }}</b> | 当日対応:{{ $article->status->name }}
                                 <hr>
                                 <br>
                             </h1>

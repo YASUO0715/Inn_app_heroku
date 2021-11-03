@@ -50,6 +50,16 @@
                         <input type="radio" name="category_id" value=3
                             {{ old('category_id') === 3 ? 'checked' : '' }}>焼走<br>
                     </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm mb-2" for="title">
+                            当日の対応状況
+                        </label>
+                        <input type="radio" name="status_id" value=1
+                            {{ old('status_id') === 1 ? 'checked' : '' }}>◎<br>
+                        <input type="radio" name="status_id" value=2
+                            {{ old('status_id') === 2 ? 'checked' : '' }}>☓<br>
+                    </div>
                 </div>
             </div>
             <input type="submit">
