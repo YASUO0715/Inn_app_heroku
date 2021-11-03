@@ -72,7 +72,7 @@
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                                                                                                                this.closest('form').submit();">
+                                                                                                                                                    this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -123,7 +123,7 @@
                             @csrf
                             <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
-                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                            this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-responsive-nav-link>
                         </form>
@@ -158,8 +158,9 @@
                                     <option type="search" value="焼走">焼走</option>
                                 </select>
                             </td>
-                            <td><input class="form-control mr-sm-2" type="search" name="caption" placeholder="宿名">
+                            {{-- <td><input class="form-control mr-sm-2" type="search" name="caption" placeholder="宿名">
                             </td>
+                            <td> --}}
                             <td>
                                 <select name="status">
                                     <option type="search" value="本日の空室" selected disabled>本日の空室</option>

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', '一覧画面')
+@section('title', 'oyado一覧')
 @section('content')
 
     <section class="row position-relative" data-masonry='{ "percentPosition": true }'>
