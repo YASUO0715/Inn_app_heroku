@@ -19,6 +19,11 @@ class ArticleController extends Controller
         // アクションに合わせたpolicyのメソッドで認可されていないユーザーはエラーを投げる
         $this->authorizeResource(Article::class, 'article');
     }
+
+    public function top(Request $request)
+    {  
+        return view('colorlib-search-1.index');
+    }
     /**
      * Display a listing of the resource.
      *

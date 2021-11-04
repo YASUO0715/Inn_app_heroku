@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', '詳細画面')
+@section('title', '')
 @section('content')
 
     <link rel="stylesheet" href="{{ asset('css/app') }}">
@@ -20,7 +20,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 logo">
                         <figcaption>
                             <h1>
                                 <b>{{ $article->caption }}</b> | 当日対応:{{ $article->status->name }}
@@ -50,7 +50,7 @@
             @csrf
             @method('delete')
         </form>
-        <div class="d-grid col-6 mx-auto gap-3">
+        <div class="d-grid col-6 mx-auto gap-3 logo">
             <a href="{{ route('articles.index') }}" class="btn btn-secondary btn-lg">戻る</a>
             <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
                 onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">

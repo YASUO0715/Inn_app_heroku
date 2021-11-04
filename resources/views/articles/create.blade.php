@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="col-8 col-offset-2 mx-auto">
+    <div class="col-8 col-offset-2 mx-auto logo">
         @include('partial.flash')
         @include('partial.errors')
         <form action="{{ route('articles.store') }}" method="post" enctype="multipart/form-data">
@@ -24,16 +24,16 @@
 
                 <div class="row m-3">
                     <div class="mb-3">
-                        <label for="file" class="form-label">画像ファイルを選択してください</label>
+                        <label for="file" class="form-label"><b>画像ファイルを選択してください</b></label>
                         <input type="file" name="file[]" id="file" class="form-control" multiple>
                     </div>
 
                     <div class="mb-3">
-                        <label for="caption" class="form-label">題名を入力してください</label>
+                        <label for="caption" class="form-label"><b>題名を入力してください</b></label>
                         <input type="text" name="caption" id="caption" class="form-control" {{ old('caption') }}>
                     </div>
                     <div>
-                        <label for="info" class="form-label">説明を入力してください</label>
+                        <label for="info" class="form-label"><b>説明を入力してください</b></label>
                         <textarea name="info" id="info" rows="5" class="form-control"
                             value="{{ old('info') }}"></textarea></textarea>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="mb-4">
                         <br>
                         <label class="block text-gray-700 text-sm mb-2" for="title">
-                            地域
+                            <b>地域</b>
                         </label>
                         <input type="radio" name="category_id" value=1
                             {{ old('category_id') === 1 ? 'checked' : '' }}>八幡平<br>
@@ -53,7 +53,7 @@
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm mb-2" for="title">
-                            当日の対応状況
+                            <b>当日の対応状況</b>
                         </label>
                         <input type="radio" name="status_id" value=1
                             {{ old('status_id') === 1 ? 'checked' : '' }}>◎<br>

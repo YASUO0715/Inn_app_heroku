@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('root') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <x-application-logo class="block  h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             </div> --}}
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center sm:ml-6 logo">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -146,7 +146,7 @@
         </div>
 
         <div class="margin-left: auto;">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-16 logo">
                 <table>
                     <tr>
                         <form class="form-inline my-2 my-lg-0" mechod="GET" action="{{ route('articles.index') }}">

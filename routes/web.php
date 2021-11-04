@@ -20,7 +20,7 @@ use App\Http\Controllers\Auth\OAuthController;
 // });
 
 
-Route::get('/', [ArticleController::class, 'index'])
+Route::get('/', [ArticleController::class, 'top'])
     ->name('root');
 
 Route::resource('articles', ArticleController::class)

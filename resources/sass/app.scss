@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap');
 
 // Variables
 @import 'variables';
@@ -17,4 +18,8 @@
     bottom: 50px;
     right: 50px;
     z-index: 10;
+}
+
+.logo {
+    font-family: 'Shippori Mincho', serif;
 }
