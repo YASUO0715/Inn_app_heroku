@@ -13,7 +13,7 @@
     <div class="s01">
       <form>
         <fieldset>
-          <legend>最安値で、今夜のお宿を</legend>
+          <legend><b>最安値で、今夜のお宿を</b></legend>
         </fieldset>
         <div class="inner-form">
           <div class="input-field first-wrap">
