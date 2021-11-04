@@ -14,7 +14,7 @@
                             {{ $article->caption }} | 本日の対応 : {{ $article->status->name }}<br>
                         </a>
                         <hr>
-                        <a href="phone_number:{{ $article->phone_number }}">電話番号: {{ $article->phone_number }}</a>
+                        <a href="tel:{{ $article->phone_number }}">電話番号: {{ $article->phone_number }}</a>
                     </div>
                 </article>
             </div>
