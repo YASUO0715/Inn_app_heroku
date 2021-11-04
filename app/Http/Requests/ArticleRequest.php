@@ -26,6 +26,7 @@ class ArticleRequest extends FormRequest
         return [
             'caption' => 'required|string|max:255',
             'info' => 'required|string',
+            'phone_number' => 'required|string|max:13',
             'category_id' => 'required',
             'status_id' => 'required'
         ];

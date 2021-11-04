@@ -36,6 +36,12 @@
                         <label for="info" class="form-label"><b>説明を入力してください</b></label>
                         <textarea name="info" id="info" rows="5" class="form-control"
                             value="{{ old('info') }}"></textarea></textarea>
+                            <br>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label"><b>電話番号を入力してください</b></label>
+                        <input type="tel" name="phone_number" id="phone_number" class="form-control" pattern="[\d\-]*" {{ old('phone_number') }}>
                     </div>
 
                     <div class="mb-4">
@@ -55,11 +61,10 @@
                         <label class="block text-gray-700 text-sm mb-2" for="title">
                             <b>当日の対応状況</b>
                         </label>
-                        <input type="radio" name="status_id" value=1
-                            {{ old('status_id') === 1 ? 'checked' : '' }}>◎<br>
-                        <input type="radio" name="status_id" value=2
-                            {{ old('status_id') === 2 ? 'checked' : '' }}>☓<br>
+                        <input type="radio" name="status_id" value=1 {{ old('status_id') === 1 ? 'checked' : '' }}>◎<br>
+                        <input type="radio" name="status_id" value=2 {{ old('status_id') === 2 ? 'checked' : '' }}>☓<br>
                     </div>
+
                 </div>
             </div>
             <input type="submit">

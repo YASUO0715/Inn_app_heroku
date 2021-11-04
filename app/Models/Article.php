@@ -14,6 +14,7 @@ class Article extends Model
     protected $fillable = [
         'caption',
         'info',
+        'phone_number',
         'category_id',
         'status_id'
     ];

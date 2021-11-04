@@ -38,29 +38,38 @@
                                     <label for="info" class="form-label">説明を入力してください</label>
                                     <textarea name="info" id="info" rows="5"
                                         class="form-control">{{ old('info', $article->info) }}</textarea>
+                                        <br>
                                 </div>
 
-                                <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm mb-2" for="title">
-                                        地域
-                                    </label>
-                                    <input type="radio" name="category_id" value=1
-                                        {{ old('category_id', $article->category_id) === 1 ? 'checked' : '' }}>八幡平<br>
-                                    <input type="radio" name="category_id" value=2
-                                        {{ old('category_id', $article->category_id) === 2 ? 'checked' : '' }}>安比高原<br>
-                                    <input type="radio" name="category_id" value=3
-                                        {{ old('category_id', $article->category_id) === 3 ? 'checked' : '' }}>焼走<br>
+                                <div class="mb-3">
+                                    <label for="phone_number" class="form-label">電話番号を入力してください</label>
+                                    <input type="tel" name="phone_number" id="phone_number" pattern="[\d\-]*" class="form-control"
+                                        value="{{ old('phone_number') }}">
                                 </div>
 
-                                <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm mb-2" for="title">
-                                        当日の対応状況
-                                    </label>
-                                    <input type="radio" name="status_id" value=1
-                                        {{ old('status_id', $article->status_id) === 1 ? 'checked' : '' }}>◎  受け入れ可能<br>
-                                    <input type="radio" name="status_id" value=2
-                                        {{ old('status_id', $article->status_id) === 2 ? 'checked' : '' }}>☓  受け入れ不可<br>
-                                </div>
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm mb-2" for="title">
+                                            地域
+                                        </label>
+                                        <input type="radio" name="category_id" value=1
+                                            {{ old('category_id', $article->category_id) === 1 ? 'checked' : '' }}>八幡平<br>
+                                        <input type="radio" name="category_id" value=2
+                                            {{ old('category_id', $article->category_id) === 2 ? 'checked' : '' }}>安比高原<br>
+                                        <input type="radio" name="category_id" value=3
+                                            {{ old('category_id', $article->category_id) === 3 ? 'checked' : '' }}>焼走<br>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label class="block text-gray-700 text-sm mb-2" for="title">
+                                            当日の対応状況
+                                        </label>
+                                        <input type="radio" name="status_id" value=1
+                                            {{ old('status_id', $article->status_id) === 1 ? 'checked' : '' }}>◎
+                                        受け入れ可能<br>
+                                        <input type="radio" name="status_id" value=2
+                                            {{ old('status_id', $article->status_id) === 2 ? 'checked' : '' }}>☓
+                                        受け入れ不可<br>
+                                    </div>
                             </form>
                         </figcaption>
                     </div>
