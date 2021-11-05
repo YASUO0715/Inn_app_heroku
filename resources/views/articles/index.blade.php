@@ -13,14 +13,14 @@
                         <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
                             {{ $article->caption }} | 本日の対応 : {{ $article->status->name }}<br>
                         </a>
-                        <hr>
-                        <a href="tel:{{ $article->phone_number }}">電話番号: {{ $article->phone_number }}</a>
+                        
                     </div>
                 </article>
             </div>
         @endforeach
     </section>
-    <a href="{{ route('articles.create') }}" class="position-fixed fs-1 bottom-right-50 zindex-sticky">
+    
+    {{-- <a href="{{ route('articles.create') }}" class="position-fixed fs-1 bottom-right-50 zindex-sticky">
         <i class="fas fa-plus-circle"></i>
-    </a>
+    </a> --}}
 @endsection

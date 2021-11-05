@@ -23,17 +23,25 @@
                     <div class="col-6 logo">
                         <figcaption>
                             <h1>
-                                <b>{{ $article->caption }}</b> | 当日対応:{{ $article->status->name }}
+                                <b>{{ $article->caption }}</b> | 当日対応: {{ $article->status->name }}
                                 <hr>
                                 <br>
                             </h1>
                             <h3>
                                 {{ $article->info }}
+                                <br>
+                                
                             </h3>
                             <tr>
                                 <th>地域 :</th>
                                 <td>{{ $article->category->name }}</td>
+                                <br>
                             </tr>
+                            <tr>
+                                <th>電話番号 :</th>
+                                <td><a href="tel:{{ $article->phone_number }}">{{ $article->phone_number }}</a></td>
+                            </tr>
+                            
                         </figcaption>
                     </div>
                 </div>
