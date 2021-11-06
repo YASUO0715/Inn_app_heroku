@@ -17,10 +17,10 @@
         </fieldset>
         <div class="inner-form">
           <div class="input-field first-wrap">
-            <input id="search" type="text" placeholder="What are you looking for?" />
+            <input id="search" type="text" placeholder="何をお探しですか" />
           </div>
           <div class="input-field second-wrap">
-            <input id="location" type="text" placeholder="location" />
+            <input id="location" type="text" placeholder="現在地から検索" />
           </div>
           <div class="input-field third-wrap">
             <button class="btn-search" type="button">Search</button>

@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Article;
-use App\Models\Attachment;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
-use Exception;
-use App\Models\User;
+use App\Models\Article;
+use App\Models\Attachment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
+use function GuzzleHttp\Promise\all;
 
 class ArticleController extends Controller
 {
-
-    public function __construct()
-    {
-        // アクションに合わせたpolicyのメソッドで認可されていないユーザーはエラーを投げる
-        $this->authorizeResource(Article::class, 'article');
-    }
-
-    public function top(Request $request)
-    {
-        return view('colorlib-search-1.index');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -56,27 +45,8 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->with('attachments')->paginate(30);
-        $articles->appends(compact('caption', 'category', 'status'));
-
-        $self_article = "";
-        if (!empty(Auth::user())) {
-            $self_article = Auth::user()->article;
-        }
-
-        // $articles = Article::all();
-        return view('articles.index', compact('articles', 'caption', 'self_article'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-        return view('articles.create');
+        $articles = $query->get();
+        return $articles;
     }
 
     /**
@@ -85,6 +55,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(ArticleRequest $request)
     {
 
@@ -141,9 +112,8 @@ class ArticleController extends Controller
         }
 
         // redirect view
-        return redirect()->route('articles.index')->with(['notice' => '新しい記事を作成しました']);
+        // return redirect()->route('articles.index')->with(['notice' => '新しい記事を作成しました']);
     }
-
 
     /**
      * Display the specified resource.
@@ -153,7 +123,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        return compact('article');
     }
 
     /**
@@ -162,10 +132,11 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
-    {
-        return view('articles.edit', compact('article'));
-    }
+
+    // public function edit(Article $article)
+    // {
+    //     return compact('article');
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -174,19 +145,21 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, Article $article)
-    {
-        // Articleのデータを更新
-        $article->fill($request->all());
+
+    
+    // public function update(ArticleRequest $request, Article $article)
+    // {
+    //     // Articleのデータを更新
+    //     $article->fill($request->all());
 
 
-        try {
-            $article->save();
-        } catch (\Exception $e) {
-            back()->withErrors(['error' => '保存に失敗しました']);
-        }
-        return redirect(route('articles.index'))->with(['flash_message' => '更新が完了しました']);
-    }
+    //     try {
+    //         $article->save();
+    //     } catch (\Exception $e) {
+    //         back()->withErrors(['error' => '保存に失敗しました']);
+    //     }
+    //     return redirect(route('articles.index'))->with(['flash_message' => '更新が完了しました']);
+    // }
 
 
     /**
@@ -195,29 +168,29 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
-    {
-        $this->authorize('delete', $article);
+//     public function destroy(Article $article)
+//     {
+//         $this->authorize('delete', $article);
 
-        $paths = $article->image_paths;
+//         $paths = $article->image_paths;
 
-        DB::beginTransaction();
+//         DB::beginTransaction();
 
-        try {
-            $article->delete(); //Article delete
-            foreach ($paths as $path) {
-                if (!Storage::delete($path)) {
-                    throw new \Exception('ファイルの削除に失敗しました。');
-                }
-            }
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()
-                ->withErrors($e->getMessage());
-        }
-        return redirect()
-            ->route('articles.index')
-            ->with(['flash_message' => '削除が完了しました']);
-    }
+//         try {
+//             $article->delete(); //Article delete
+//             foreach ($paths as $path) {
+//                 if (!Storage::delete($path)) {
+//                     throw new \Exception('ファイルの削除に失敗しました。');
+//                 }
+//             }
+//             DB::commit();
+//         } catch (\Exception $e) {
+//             DB::rollBack();
+//             return back()
+//                 ->withErrors($e->getMessage());
+//         }
+//         return redirect()
+//             ->route('articles.index')
+//             ->with(['flash_message' => '削除が完了しました']);
+//     }
 }
