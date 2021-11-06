@@ -45,8 +45,17 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->get();
-        return $articles;
+        // $articles = $query->get();
+
+        $articles = $query->with('attachments')->paginate(30);
+        $articles->appends(compact('caption', 'category', 'status'));
+
+        $self_article = "";
+        if (!empty(Auth::user())) {
+            $self_article = Auth::user()->article;
+        }
+
+        return compact('articles', 'caption', 'self_article');
     }
 
     /**
