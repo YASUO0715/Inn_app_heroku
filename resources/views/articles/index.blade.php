@@ -11,16 +11,18 @@
                     <img src="{{ $article->image_url }}" class="card-img-top">
                     <div class="card-title mx-3">
                         <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
-                            {{ $article->caption }} | 本日の対応 : {{ $article->status->name }}<br>
+                            {{ $article->caption }} | 空室状況 : {{ $article->status->name }}<br>
                         </a>
-                        
+
                     </div>
                 </article>
             </div>
         @endforeach
     </section>
-    
-    {{-- <a href="{{ route('articles.create') }}" class="position-fixed fs-1 bottom-right-50 zindex-sticky">
-        <i class="fas fa-plus-circle"></i>
-    </a> --}}
+
+    @if (empty($self_article))
+        <a href="{{ route('articles.create') }}" class="position-fixed fs-1 bottom-right-50 zindex-sticky">
+            <i class="fas fa-plus-circle"></i>
+        </a>
+    @endif
 @endsection

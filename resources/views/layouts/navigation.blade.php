@@ -65,14 +65,16 @@
                     <x-slot name="content">
                         <!-- Authentication -->
                         @auth
-                            <x-dropdown-link :href="route('articles.create')">
-                                {{ __('Create Post') }}
-                            </x-dropdown-link>
+                            @if (empty(Auth::user()->article))
+                                <x-dropdown-link :href="route('articles.create')">
+                                    {{ __('Create Post') }}
+                                </x-dropdown-link>
+                            @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                        this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -123,7 +125,7 @@
                             @csrf
                             <x-responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
-                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-responsive-nav-link>
                         </form>
@@ -163,7 +165,7 @@
                             <td> --}}
                             <td>
                                 <select name="status">
-                                    <option type="search" value="本日の空室" selected disabled>本日の空室</option>
+                                    <option type="search" value="本日の空室" selected disabled>空室状況</option>
                                     <option type="search" value="◎">◎</option>
                                 </select>
                             </td>
