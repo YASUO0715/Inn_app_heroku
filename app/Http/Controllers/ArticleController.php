@@ -55,8 +55,8 @@ class ArticleController extends Controller
                 $q->where('name', 'like', '%' . $status . '%');
             });
         }
-
-        $articles = $query->with('attachments')->paginate(30);
+        //N+1問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
+        $articles = $query->with('attachments','status')->paginate(30);
         $articles->appends(compact('caption', 'category', 'status'));
 
         $self_article = "";
@@ -65,6 +65,7 @@ class ArticleController extends Controller
         }
 
         // $articles = Article::all();
+        // dd($articles);
         return view('articles.index', compact('articles', 'caption', 'self_article'));
     }
 
