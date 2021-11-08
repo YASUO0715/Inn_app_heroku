@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Attachment;
+use Doctrine\DBAL\Query;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -132,6 +133,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+
+        $query = Article::query();
+        
+        $articles = $query->with('attachments', 'status','category');
         return compact('article');
     }
 
