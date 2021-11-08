@@ -55,7 +55,7 @@ class ArticleController extends Controller
             $self_article = Auth::user()->article;
         }
 
-        return compact('articles', 'caption', 'self_article');
+        return $articles;
     }
 
     /**
