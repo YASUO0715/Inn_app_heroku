@@ -50,6 +50,10 @@ figure,
 main {
   /* 1 */
   display: block;
+  background: url("../images/Sample.png");
+  background-size: cover;
+  background-position: center center;
+  background-color: #157003;
 }
 
 /**
@@ -463,10 +467,10 @@ legend {
   -ms-flex-align: center;
       align-items: center;
   font-family: 'Shippori Mincho', serif;
-  background: url("../images/hiroshige013_main.jpeg");
+  /* background: url("../images/Sample.png");
   background-size: cover;
   background-position: center center;
-  background-color: #157003;
+  background-color: #157003; */
   padding: 15px;
 }
 
