@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', '')
 @section('content')
-    {{-- AIzaSyCASiQkJIMA2MvE7HyqepT_lhMRBFnZr_M --}}
+    
 
     <link rel="stylesheet" href="{{ asset('css/app') }}">
     <section>
