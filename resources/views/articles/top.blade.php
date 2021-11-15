@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="colorlib.com">
     <link rel="stylesheet" href="{{ asset('css/main') }}">
-    <link rel="stylesheet" href="{{ asset('images/nihon_bashi.jpeg') }}">
+    <link rel="stylesheet" href="{{ asset('images/Sample.png') }}">
 </head>
 
 <body>

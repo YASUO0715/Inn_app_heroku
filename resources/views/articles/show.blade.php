@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title', '')
 @section('content')
+    {{-- AIzaSyCASiQkJIMA2MvE7HyqepT_lhMRBFnZr_M --}}
 
     <link rel="stylesheet" href="{{ asset('css/app') }}">
     <section>
@@ -17,7 +18,7 @@
                                         <td><img src="{{ $url }}" width="100%"></td>
                                     </article>
                                 @endforeach
-                            </tr>
+                                </tr>
                         </table>
                     </div>
                     <div class="col-6 logo">
@@ -30,7 +31,7 @@
                             <h3>
                                 {{ $article->info }}
                                 <br>
-                                
+
                             </h3>
                             <tr>
                                 <th>地域 :</th>
@@ -41,7 +42,7 @@
                                 <th>電話番号 :</th>
                                 <td><a href="tel:{{ $article->phone_number }}">{{ $article->phone_number }}</a></td>
                             </tr>
-                            
+
                         </figcaption>
                     </div>
                 </div>

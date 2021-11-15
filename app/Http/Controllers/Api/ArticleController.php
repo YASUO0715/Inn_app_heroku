@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Attachment;
+use Doctrine\DBAL\Query;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,16 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->get();
+        // $articles = $query->get();
+
+        $articles = $query->with('attachments','status')->paginate(30);
+        $articles->appends(compact('caption', 'category', 'status'));
+
+        $self_article = "";
+        if (!empty(Auth::user())) {
+            $self_article = Auth::user()->article;
+        }
+
         return $articles;
     }
 
@@ -55,7 +65,7 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     public function store(ArticleRequest $request)
     {
 
@@ -123,6 +133,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+
+        $query = Article::query();
+        
+        $articles = $query->with('attachments', 'status','category');
         return compact('article');
     }
 
@@ -146,7 +160,7 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    
+
     // public function update(ArticleRequest $request, Article $article)
     // {
     //     // Articleのデータを更新
@@ -168,29 +182,29 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-//     public function destroy(Article $article)
-//     {
-//         $this->authorize('delete', $article);
+    //     public function destroy(Article $article)
+    //     {
+    //         $this->authorize('delete', $article);
 
-//         $paths = $article->image_paths;
+    //         $paths = $article->image_paths;
 
-//         DB::beginTransaction();
+    //         DB::beginTransaction();
 
-//         try {
-//             $article->delete(); //Article delete
-//             foreach ($paths as $path) {
-//                 if (!Storage::delete($path)) {
-//                     throw new \Exception('ファイルの削除に失敗しました。');
-//                 }
-//             }
-//             DB::commit();
-//         } catch (\Exception $e) {
-//             DB::rollBack();
-//             return back()
-//                 ->withErrors($e->getMessage());
-//         }
-//         return redirect()
-//             ->route('articles.index')
-//             ->with(['flash_message' => '削除が完了しました']);
-//     }
+    //         try {
+    //             $article->delete(); //Article delete
+    //             foreach ($paths as $path) {
+    //                 if (!Storage::delete($path)) {
+    //                     throw new \Exception('ファイルの削除に失敗しました。');
+    //                 }
+    //             }
+    //             DB::commit();
+    //         } catch (\Exception $e) {
+    //             DB::rollBack();
+    //             return back()
+    //                 ->withErrors($e->getMessage());
+    //         }
+    //         return redirect()
+    //             ->route('articles.index')
+    //             ->with(['flash_message' => '削除が完了しました']);
+    //     }
 }
