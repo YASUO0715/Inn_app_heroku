@@ -48,4 +48,8 @@ return [
         'redirect' => '/auth/line/callback',
     ],
 
+    'google-map' => [
+        'apikey' => env('GOOGLE_MAP_API_KEY'),
+    ],
+
 ];

@@ -11,19 +11,19 @@
   </head>
   <body>
     <div class="s01">
-      <form>
+      <form>        
         <fieldset>
           {{-- <legend><b>最安値で、今夜のお宿を</b></legend> --}}
         </fieldset>
         <div class="inner-form">
-          <div class="input-field first-wrap">
+          {{-- <div class="input-field first-wrap">
             <input id="search" type="text" placeholder="現在地から検索" />
-          </div>
+          </div> --}}
           {{-- <div class="input-field second-wrap">
             <input id="location" type="text" placeholder="現在地から検索" />
           </div> --}}
           <div class="input-field third-wrap">
-            <button class="btn-search" type="button">Search</button>
+            <button class="btn-search" type="button" >現在地から検索</button>
           </div>
         </div>
       </form>
