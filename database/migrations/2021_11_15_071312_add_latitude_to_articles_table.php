@@ -14,7 +14,7 @@ class AddLatitudeToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->float('latitude')
+            $table->decimal('latitude', 10, 8)
             ->after('address');
         });
     }
@@ -27,7 +27,7 @@ class AddLatitudeToArticlesTable extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn('latitude');
+            $table->dropColumn('latitude',10,8);
         });
     }
 }

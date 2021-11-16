@@ -222,11 +222,4 @@ class ArticleController extends Controller
             ->with(['flash_message' => '削除が完了しました']);
     }
 
-    public function currentLocation(Request $request)
-    {
-        $lat = $request->lat;
-        $lng = $request->lng;
-        // currentLocationで表示
-        return view('articles.currentLocation', compact('lat', 'lng'));
-    }
 }

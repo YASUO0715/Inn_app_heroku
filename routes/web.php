@@ -23,9 +23,6 @@ use App\Http\Controllers\Auth\OAuthController;
 Route::get('/', [ArticleController::class, 'top'])
     ->name('root');
 
-Route::get('result', [ArticleController::class, 'currentLocation'])
-    ->name('result.currentLocation');
-
 Route::resource('articles', ArticleController::class)
     ->middleware(['auth'])
     ->only(['create', 'store', 'edit', 'update', 'destroy']);

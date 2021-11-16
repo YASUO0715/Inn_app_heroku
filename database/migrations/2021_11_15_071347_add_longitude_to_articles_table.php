@@ -14,8 +14,8 @@ class AddLongitudeToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->float('longitude')
-            ->after('latitude');
+            $table->decimal('longitude', 11, 8)
+            ->after('latitude',10,8);
         });
     }
 
@@ -27,7 +27,7 @@ class AddLongitudeToArticlesTable extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn('longitude');
+            $table->dropColumn('longitude',11,8);
         });
     }
 }
