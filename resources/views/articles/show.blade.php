@@ -60,6 +60,7 @@
             @endcan
         </article>
     </section>
+    <div id="map" style="height:50vh;"></div>
     @can('delete', $article)
         <form action="{{ route('articles.destroy', $article) }}" method="post" id="form">
             @csrf
@@ -71,4 +72,15 @@
                 onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
         </div>
     @endcan
+@endsection
+
+@section('script')
+    @include('partial.map')
+    <script>
+        @if (!empty($article)) 
+            L.marker([{{ $article->latitude }},{{ $article->longitude }}])
+                .bindPopup("{{ $article->name }}", {closeButton: false})
+                .addTo(map);
+        @endif
+</script>
 @endsection

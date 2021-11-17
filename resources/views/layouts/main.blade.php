@@ -6,6 +6,7 @@
     </x-slot>
     <div class="container">
         @yield('content')
+        @yield('script')
     </div>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </x-app-layout>

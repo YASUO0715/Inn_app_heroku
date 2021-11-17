@@ -36,12 +36,18 @@
                         <label for="info" class="form-label"><b>説明を入力してください</b></label>
                         <textarea name="info" id="info" rows="5" class="form-control"
                             value="{{ old('info') }}"></textarea></textarea>
-                            <br>
+                        <br>
                     </div>
 
                     <div class="mb-3">
                         <label for="phone_number" class="form-label"><b>電話番号を入力してください</b></label>
-                        <input type="tel" name="phone_number" id="phone_number" class="form-control" pattern="[\d\-]*" {{ old('phone_number') }}>
+                        <input type="tel" name="phone_number" id="phone_number" class="form-control" pattern="[\d\-]*"
+                            {{ old('phone_number') }}>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label"><b>住所を入力してください</b></label>
+                        <input type="text" name="address" id="address" class="form-control" {{ old('address') }}>
                     </div>
 
                     <div class="mb-4">
@@ -64,10 +70,37 @@
                         <input type="radio" name="status_id" value=1 {{ old('status_id') === 1 ? 'checked' : '' }}>◎<br>
                         <input type="radio" name="status_id" value=2 {{ old('status_id') === 2 ? 'checked' : '' }}>☓<br>
                     </div>
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
 
                 </div>
             </div>
+            <div id="map" style="height: 50vh;"></div>
             <input type="submit">
         </form>
     </div>
+@endsection
+
+@section('script')
+    @include('partial.map')
+    <script>
+        const lat = document.getElementById('latitude');
+        const lng = document.getElementById('longitude');
+        let clicked;
+        map.on('click', function(e) {
+            if (clicked !== true) {
+                clicked = true;
+                const marker = L.marker([e.latlng['lat'], e.latlng['lng']], {
+                    draggable: true
+                }).addTo(map);
+                lat.value = e.latlng['lat'];
+                lng.value = e.latlng['lng'];
+                marker.on('dragend', function(e) {
+                    // 座標は、e.target.getLatLng()で取得
+                    lat.value = e.target.getLatLng()['lat'];
+                    lng.value = e.target.getLatLng()['lng'];
+                });
+            }
+        });
+    </script>
 @endsection

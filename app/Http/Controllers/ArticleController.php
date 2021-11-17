@@ -55,8 +55,8 @@ class ArticleController extends Controller
                 $q->where('name', 'like', '%' . $status . '%');
             });
         }
-        //N+1問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
-        $articles = $query->with('attachments','status')->paginate(30);
+        //N問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
+        $articles = $query->with('attachments', 'status')->paginate(30);
         $articles->appends(compact('caption', 'category', 'status'));
 
         $self_article = "";
@@ -64,9 +64,14 @@ class ArticleController extends Controller
             $self_article = Auth::user()->article;
         }
 
-        // $articles = Article::all();
+        $articles = Article::all();
+
+        $latitude = $articles->average('latitude');
+        $longitude = $articles->average('longitude');
+        $zoom = 5;
+
         // dd($articles);
-        return view('articles.index', compact('articles', 'caption', 'self_article'));
+        return view('articles.index', compact('articles', 'caption', 'self_article', 'latitude', 'longitude', 'zoom'));
     }
 
     /**
@@ -76,8 +81,13 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        // 最初に表示したい座標(今回は東京タワー)
+        $latitude = 35.658584;
+        $longitude = 139.7454316;
+        $zoom = 10;
+        return view('articles.create', compact('latitude', 'longitude', 'zoom'));
 
-        return view('articles.create');
+    
     }
 
     /**
@@ -154,7 +164,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $latitude = $article->latitude;
+        $longitude = $article->longitude;
+        $zoom = 12;
+        return view('articles.show', compact('article', 'latitude', 'longitude', 'zoom'));
     }
 
     /**
@@ -165,7 +178,12 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $latitude = $article->latitude;
+        $longitude = $article->longitude;
+        $zoom = 12;
+
+        return view('articles.edit', compact('article', 'latitude', 'longitude', 'zoom'));
+        
     }
 
     /**
@@ -221,5 +239,4 @@ class ArticleController extends Controller
             ->route('articles.index')
             ->with(['flash_message' => '削除が完了しました']);
     }
-
 }

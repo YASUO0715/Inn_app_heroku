@@ -17,7 +17,7 @@
             </div>
         @endforeach
     </section>
-    
+    <div id="map" style="height:50vh;"></div>
 
     @if (empty($self_article))
         <a href="{{ route('articles.create') }}" class="position-fixed fs-1 bottom-right-50 zindex-sticky">
@@ -25,3 +25,17 @@
         </a>
     @endif
 @endsection
+
+@section('script')
+    @include('partial.map')
+    <script>
+        @if (!empty($article))
+            @foreach ($articles as $article)
+                L.marker([{{ $article->latitude }},{{ $article->longitude }}])
+                    .bindPopup('<a href="{{ route('articles.show', $article) }}">{{ $article->name }}</a>', {closeButton: false})
+                    .addTo(map);
+            @endforeach
+        @endif
+    </script>
+@endsection
+
