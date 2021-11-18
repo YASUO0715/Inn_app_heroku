@@ -23,8 +23,14 @@ use App\Http\Controllers\Auth\OAuthController;
 Route::get('/', [ArticleController::class, 'top'])
     ->name('root');
 
+Route::get('/sample', [ArticleController::class, 'sample'])
+    ->name('sample');
+
+Route::get('/distance_matrix', [ArticleController::class, 'distance_matrix'])
+    ->name('distance_matrix');
+
 Route::get('/article/test', [ArticleController::class, 'test'])
-->name('root');
+    ->name('root');
 
 Route::resource('articles', ArticleController::class)
     ->middleware(['auth'])

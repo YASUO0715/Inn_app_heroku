@@ -27,6 +27,16 @@ class ArticleController extends Controller
     {
         return view('colorlib-search-1.index');
     }
+
+    public function sample(Request $request)
+    {
+        return view('colorlib-search-1.sample');
+    }
+
+    public function distance_matrix(Request $request)
+    {
+        return view('colorlib-search-1.distance_matrix');
+    }
     /**
      * Display a listing of the resource.
      *
