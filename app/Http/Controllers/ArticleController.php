@@ -11,6 +11,7 @@ use App\Http\Requests\ArticleRequest;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 
 
 class ArticleController extends Controller
@@ -86,8 +87,6 @@ class ArticleController extends Controller
         $longitude = 139.7454316;
         $zoom = 10;
         return view('articles.create', compact('latitude', 'longitude', 'zoom'));
-
-    
     }
 
     /**
@@ -183,7 +182,6 @@ class ArticleController extends Controller
         $zoom = 12;
 
         return view('articles.edit', compact('article', 'latitude', 'longitude', 'zoom'));
-        
     }
 
     /**
@@ -238,5 +236,10 @@ class ArticleController extends Controller
         return redirect()
             ->route('articles.index')
             ->with(['flash_message' => '削除が完了しました']);
+    }
+
+    public function test(Request $request)
+    {
+        return view('colorlib-search-1.index');
     }
 }

@@ -23,6 +23,9 @@ use App\Http\Controllers\Auth\OAuthController;
 Route::get('/', [ArticleController::class, 'top'])
     ->name('root');
 
+Route::get('/article/test', [ArticleController::class, 'test'])
+->name('root');
+
 Route::resource('articles', ArticleController::class)
     ->middleware(['auth'])
     ->only(['create', 'store', 'edit', 'update', 'destroy']);

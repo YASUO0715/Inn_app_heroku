@@ -15,6 +15,9 @@ class Article extends Model
         'caption',
         'info',
         'phone_number',
+        'address',
+        'latitude',
+        'longitude',
         'category_id',
         'status_id'
     ];
