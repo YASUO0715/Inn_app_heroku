@@ -25,6 +25,7 @@ class ArticleController extends Controller
 
     public function top(Request $request)
     {
+
         return view('colorlib-search-1.index');
     }
 
@@ -35,7 +36,21 @@ class ArticleController extends Controller
 
     public function distance_matrix(Request $request)
     {
-        return view('colorlib-search-1.distance_matrix');
+        $address = $request->address;
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+
+        return view('colorlib-search-1.distance_matrix', compact('latitude', 'longitude', 'address'));
+    }
+
+    public function store_locator(Request $request)
+    {
+        return view('store-locator.index');
+    }
+
+    public function test_sort(Request $request)
+    {
+        return view('colorlib-search-1.test_sort');
     }
     /**
      * Display a listing of the resource.
@@ -47,6 +62,10 @@ class ArticleController extends Controller
         $caption = $request->caption;
         $category = $request->category;
         $status = $request->status;
+        $address = $request->address;
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+
 
         $query = Article::query();
 
@@ -75,14 +94,9 @@ class ArticleController extends Controller
             $self_article = Auth::user()->article;
         }
 
-        $articles = Article::all();
-
-        $latitude = $articles->average('latitude');
-        $longitude = $articles->average('longitude');
-        $zoom = 5;
 
         // dd($articles);
-        return view('articles.index', compact('articles', 'caption', 'self_article', 'latitude', 'longitude', 'zoom'));
+        return view('articles.index', compact('articles', 'caption', 'self_article', 'latitude', 'longitude', 'address'));
     }
 
     /**

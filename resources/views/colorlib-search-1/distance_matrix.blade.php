@@ -146,7 +146,7 @@
             markersArray = [];
         }
     </script>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=APIKEY&callback=initMap" async defer>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ config('services.google-map.apikey') }}&callback=initMap" async defer>
     </script>
 </body>
 

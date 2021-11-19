@@ -29,8 +29,14 @@ Route::get('/sample', [ArticleController::class, 'sample'])
 Route::get('/distance_matrix', [ArticleController::class, 'distance_matrix'])
     ->name('distance_matrix');
 
+Route::get('/store_locator', [ArticleController::class, 'store_locator'])
+->name('store_locator');
+
+Route::get('/test_sort', [ArticleController::class, 'test_sort'])
+->name('test_sort');
+
 Route::get('/article/test', [ArticleController::class, 'test'])
-    ->name('root');
+    ->name('test');
 
 Route::resource('articles', ArticleController::class)
     ->middleware(['auth'])
