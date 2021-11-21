@@ -59,18 +59,28 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $caption = $request->caption;
+        // $caption = $request->caption;
+        // $address = $request->address;
+        // $cur_lat = $request->lat;
+        // $cur_lng = $request->lng;
         $category = $request->category;
         $status = $request->status;
-        $address = $request->address;
-        $latitude = $request->latitude;
-        $longitude = $request->longitude;
+        $latitude = $request->lat;
+        $longitude = $request->lng;
+
 
 
         $query = Article::query();
 
+        if (!empty($latitude)) {
+            $query->select(
+                '*',
+                DB::raw('6370 * ACOS(COS(RADIANS(' . $latitude . ')) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $longitude . ')) 
+        + SIN(RADIANS(' . $latitude . ')) * SIN(RADIANS(latitude))) as distance')
+            )
+                ->orderBy('distance');
+        }
         if (!empty($caption)) {
-
             $query->where('caption', 'like', '%' . $caption . '%');
         }
 
@@ -86,17 +96,16 @@ class ArticleController extends Controller
             });
         }
         //N問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
-        $articles = $query->with('attachments', 'status')->paginate(30);
-        $articles->appends(compact('caption', 'category', 'status'));
+        $articles = $query->with('attachments', 'status')->get();
+        // $articles->appends(compact('caption', 'category', 'status'));
 
         $self_article = "";
         if (!empty(Auth::user())) {
             $self_article = Auth::user()->article;
         }
 
-
         // dd($articles);
-        return view('articles.index', compact('articles', 'caption', 'self_article', 'latitude', 'longitude', 'address'));
+        return view('articles.index', compact('articles', 'latitude', 'longitude'));
     }
 
     /**
@@ -104,9 +113,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         // 最初に表示したい座標(今回は東京タワー)
+        // $latitude = $request->lat;
+        // $longitude = $request->lng;
         $latitude = 35.658584;
         $longitude = 139.7454316;
         $zoom = 10;

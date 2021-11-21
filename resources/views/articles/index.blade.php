@@ -49,47 +49,30 @@
 @section('content')
 
 <script>
-    function setLocation(pos) {
-            // 緯度・経度を取得
-            const lat = pos.coords.latitude;
-            const lng = pos.coords.longitude;
-            // 定数lat,lng をconsoleに出力
-            console.log(lat);
-            console.log(lng);
-            
-            }
-            
-            // エラー時に呼び出される関数
-            function showErr(err) {
-            switch (err.code) {
-            case 1 :
-            alert("位置情報の利用が許可されていません");
-            break;
-            case 2 :
-            alert("デバイスの位置が判定できません");
-            break;
-            case 3 :
-            alert("タイムアウトしました");
-            break;
-            default :
-            alert(err.message);
-            }
-            }
-            
-            // geolocation に対応しているか否かを確認
-            if ("geolocation" in navigator) {
-            var opt = {
-            "enableHighAccuracy": true,
-            "timeout": 10000,
-            "maximumAge": 0,
-            };
-            navigator.geolocation.getCurrentPosition(setLocation, showErr, opt);
-            } else {
-            alert("ブラウザが位置情報取得に対応していません");
-            }
+    navigator.geolocation.getCurrentPosition((position) => {
+//緯度
+let lat = position.coords.latitude;
+//経度
+let lng = position.coords.longitude;
+
+const hiddenField = document.getElementById('lat');
+// 値をセット
+hiddenField.value = lat
+
+const hiddenField2 = document.getElementById('lng');
+// 値をセット
+hiddenField2.value = lng
+
+console.log(lat);
+console.log(lng);
+});
 </script>
 
-
+<form method="POST" action={{ route('articles.create') }}>
+    @method('get')
+    <input type="hidden" name="lat" value="lat" id="lat">
+    <input type="hidden" name="lng" value="lng" id="lng">
+</form>
 
 <section class="row position-relative logo" data-masonry='{ "percentPosition": true }'>
     @foreach ($articles as $article)
@@ -97,6 +80,7 @@
         <article class="card position-relative">
             <img src="{{ $article->image_url }}" class="card-img-top">
             <div class="card-title mx-3">
+                {{ $article->distance }}
                 <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
                     {{ $article->caption }} | 空室状況 : {{ $article->status->name }}<br>
                 </a>
@@ -107,6 +91,8 @@
 </section>
 
 
+
+{{--
 
 <body>
     <div id="right-panel">
@@ -373,4 +359,4 @@
             @endforeach
         @endif
 </script> --}}
-@endsection 
+@endsection

@@ -1,0 +1,42 @@
+###
+POST /api/register
+Host: localhost
+Accept: application/json
+content-type: application/json
+
+{
+    "name": "エアマックス 95",
+    "email": "taro@example.com",
+    "password":"12345678"
+}
+
+###
+POST /api/login
+Host: localhost
+Accept: application/json
+content-type: application/json
+
+{    
+    "email": "taro@example.com",
+    "password":"12345678"
+}
+
+###
+GET /api/user
+Host: localhost
+Accept: application/json
+content-type: application/json
+Authorization: Bearer 1|yRTtJmbKViyeV9joSNG32TOJXSTd2t1EH20TcO3S
+
+
+###
+GET /api/articles
+Host: localhost
+Accept: application/json
+content-type: application/json
+Authorization: Bearer 1|yRTtJmbKViyeV9joSNG32TOJXSTd2t1EH20TcO3S
+
+{    
+    "lat":39.99153836,
+    "lng":141.02485644
+}

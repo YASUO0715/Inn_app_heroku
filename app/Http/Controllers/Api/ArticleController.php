@@ -7,15 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Attachment;
-use Doctrine\DBAL\Query;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+
+
 
 use function GuzzleHttp\Promise\all;
 
 class ArticleController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,14 +26,28 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $caption = $request->caption;
+        // $caption = $request->caption;
         $category = $request->category;
         $status = $request->status;
+        // $address = $request->address;
+        $latitude = $request->lat;
+        $longitude = $request->lng;
+        // $cur_lat = $request->lat;
+        // $cur_lng = $request->lng;
+
+
 
         $query = Article::query();
 
+        if (!empty($latitude)) {
+            $query->select(
+                '*',
+                DB::raw('6370 * ACOS(COS(RADIANS(' . $latitude . ')) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $longitude . ')) 
+        + SIN(RADIANS(' . $latitude . ')) * SIN(RADIANS(latitude))) as distance')
+            )
+                ->orderBy('distance');
+        }
         if (!empty($caption)) {
-
             $query->where('caption', 'like', '%' . $caption . '%');
         }
 
@@ -45,11 +62,9 @@ class ArticleController extends Controller
                 $q->where('name', 'like', '%' . $status . '%');
             });
         }
-
-        // $articles = $query->get();
-
-        $articles = $query->with('attachments','status')->paginate(30);
-        $articles->appends(compact('caption', 'category', 'status'));
+        //N問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
+        $articles = $query->with('attachments', 'status')->get();
+        // $articles->appends(compact('caption', 'category', 'status'));
 
         $self_article = "";
         if (!empty(Auth::user())) {
@@ -135,9 +150,13 @@ class ArticleController extends Controller
     {
 
         $query = Article::query();
-        
-        $articles = $query->with('attachments', 'status','category');
-        return compact('article');
+
+        // $articles = $query->with('attachments', 'status', 'category');
+        // return compact('article');
+        // $latitude = $article->latitude;
+        // $longitude = $article->longitude;
+        $zoom = 12;
+        return compact('article', 'zoom');
     }
 
     /**

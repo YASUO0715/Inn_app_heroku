@@ -103,21 +103,6 @@
     </script>
     <script src="//maps.google.com/maps/api/js?key={{ config('services.google-map.apikey') }}&callback=initMap"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @can('delete', $article)
         <form action="{{ route('articles.destroy', $article) }}" method="post" id="form">
             @csrf

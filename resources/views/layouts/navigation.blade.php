@@ -63,6 +63,7 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        
                         <!-- Authentication -->
                         @auth
                             @if (empty(Auth::user()->article))
