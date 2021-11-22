@@ -80,9 +80,9 @@ console.log(lng);
         <article class="card position-relative">
             <img src="{{ $article->image_url }}" class="card-img-top">
             <div class="card-title mx-3">
-                {{ $article->distance }}
+                {{ round($article->distance, 1) }} km
                 <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
-                    {{ $article->caption }} | 空室状況 : {{ $article->status->name }}<br>
+                    {{ $article->caption }} | 当日の対応状況 : {{ $article->status->name }}<br>
                 </a>
             </div>
         </article>

@@ -78,7 +78,7 @@ class ArticleController extends Controller
                 DB::raw('6370 * ACOS(COS(RADIANS(' . $latitude . ')) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $longitude . ')) 
         + SIN(RADIANS(' . $latitude . ')) * SIN(RADIANS(latitude))) as distance')
             )
-                ->orderBy('distance');
+                ->orderBy('distance');       
         }
         if (!empty($caption)) {
             $query->where('caption', 'like', '%' . $caption . '%');

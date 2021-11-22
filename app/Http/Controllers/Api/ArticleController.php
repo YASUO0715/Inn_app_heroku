@@ -18,6 +18,12 @@ use function GuzzleHttp\Promise\all;
 class ArticleController extends Controller
 {
 
+    public function top(Request $request)
+    {
+
+        return view('colorlib-search-1.index');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -27,13 +33,13 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         // $caption = $request->caption;
-        $category = $request->category;
-        $status = $request->status;
         // $address = $request->address;
-        $latitude = $request->lat;
-        $longitude = $request->lng;
         // $cur_lat = $request->lat;
         // $cur_lng = $request->lng;
+        $category = $request->category;
+        $status = $request->status;
+        $latitude = $request->lat;
+        $longitude = $request->lng;
 
 
 

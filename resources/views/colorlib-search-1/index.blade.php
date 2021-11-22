@@ -33,26 +33,25 @@
     </script>
 
 
-    <div class="s01">
+    <div class="backgroundimage">
         <fieldset>
             {{-- <legend><b>最安値で、今夜のお宿を</b></legend> --}}
         </fieldset>
-        
-            {{-- <div class="input-field first-wrap">
-                <input id="search" type="text" placeholder="現在地から検索" />
-            </div> --}}
-            {{-- <div class="input-field second-wrap">
-                <input id="location" type="text" placeholder="現在地から検索" />
-            </div> --}}
-            <div class="inner-form">
-            <div class="input-field third-wrap">
-                <form method="POST" action={{ route('articles.index') }}>
-                    @method('get')
-                    <input type="hidden" name="lat" value="lat" id="lat">
-                    <input type="hidden" name="lng" value="lng" id="lng">
-                    <input type="submit"  value="現在地から検索">
-                </form>
-            </div>
+
+        {{-- <div class="input-field first-wrap">
+            <input id="search" type="text" placeholder="現在地から検索" />
+        </div> --}}
+        {{-- <div class="input-field second-wrap">
+            <input id="location" type="text" placeholder="現在地から検索" />
+        </div> --}}
+
+        <div class="cur_button">
+            <form method="POST" action={{ route('articles.index') }}>
+                @method('get')
+                <input type="hidden" name="lat" value="lat" id="lat">
+                <input type="hidden" name="lng" value="lng" id="lng">
+                <input type="submit" value="現在地から本日泊まれる宿を検索！！" style="width:100%;padding:10px;font-size:30px;">
+            </form>
         </div>
     </div>
 </body>
