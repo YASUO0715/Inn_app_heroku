@@ -16,6 +16,7 @@ class Article extends Model
         'info',
         'phone_number',
         'address',
+        'price',
         'latitude',
         'longitude',
         'category_id',

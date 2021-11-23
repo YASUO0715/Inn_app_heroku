@@ -29,30 +29,31 @@
                 
                 console.log(lat);
                 console.log(lng);
+
+                document.getElementById("submit_button").disabled = false;
             });
     </script>
 
 
     <div class="backgroundimage">
         <fieldset>
-            {{-- <legend><b>最安値で、今夜のお宿を</b></legend> --}}
+            
         </fieldset>
 
-        {{-- <div class="input-field first-wrap">
-            <input id="search" type="text" placeholder="現在地から検索" />
-        </div> --}}
-        {{-- <div class="input-field second-wrap">
-            <input id="location" type="text" placeholder="現在地から検索" />
-        </div> --}}
-
         <div class="cur_button">
-            <form method="POST" action={{ route('articles.index') }}>
+            <form name="cur_location" method="POST" action={{ route('articles.index') }} disabled>
                 @method('get')
                 <input type="hidden" name="lat" value="lat" id="lat">
                 <input type="hidden" name="lng" value="lng" id="lng">
-                <input type="submit" value="現在地から本日泊まれる宿を検索！！" style="width:100%;padding:10px;font-size:30px;">
+                <button type="submit" id="submit_button" value="近くの本日泊まれる宿を検索"
+                    style="width:100%;padding:10px;font-size:1.5rem;" disabled>近くの本日泊まれる宿を検索</button>
             </form>
         </div>
+
+
+
+
+
     </div>
 </body>
 

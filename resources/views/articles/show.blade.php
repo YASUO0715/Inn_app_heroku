@@ -2,20 +2,25 @@
 @section('title', '')
 @section('content')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="{{ asset('css/app') }}">
 <section>
 
     <article class="card shadow position-relative">
 
-        <figure class="m-3">
+        <figure class="m-3" text-lg>
             <div class="row">
                 <div class="col-6">
                     <table>
                         <tr>
                             @foreach ($article->image_urls as $url)
-                            <article class="w-full px-4 md:w-1/4 text-xl text-gray-800 leading-normal">
-                                <td><img src="{{ $url }}" width="100%"></td>
+                            <article class="w-full px-px md:w-2/4 text-xl text-gray-800 leading-normal">
+                                {{-- <td><img src="{{ $url }}" width="100%"></td>
+                                <td><img src="{{ $url }}" width="100%"></td> --}}
+                                <td><a href="{{ $url }}" data-lightbox="group"><img src="{{ $url }}" width="300" height="300"></a><td>
                             </article>
                             @endforeach
                         </tr>
@@ -46,21 +51,25 @@
                         <tr>
                             <th>住所 :</th>
                             <td>{{ $article->address }}</td>
+                            <br>
+                        </tr>
+                        <tr>
+                            <th>金額 :</th>
+                            <td>{{ $article->price }}円</td>
+                            <br>
                         </tr>
                     </figcaption>
                 </div>
             </div>
         </figure>
         <br>
-
-
     </article>
 </section>
 
 <br>
 
 
-<div id="map" style="width: 600px; height: 500px;">
+<div id="map" style="width: 100%; height: 500px;">
 </div>
 
 <script>

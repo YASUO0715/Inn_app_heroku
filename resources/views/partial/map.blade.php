@@ -10,9 +10,12 @@
     // 地図描画エリアを作成
     const map = L.map('map');
 
-    // 中心座標とzoomを指定
-    map.setView([{{ $latitude }}, {{ $longitude }}], {{ $zoom }});
+    if ({{ $latitude }} && {{ $longitude }}) {
 
-    // 表示するタイルを指定
-    L.tileLayer('http://tile.openstreetmap.jp/{z}/{x}/{y}.png').addTo(map);
+        // 中心座標とzoomを指定
+        map.setView([{{ $latitude }}, {{ $longitude }}], {{ $zoom }});
+
+        // 表示するタイルを指定
+        L.tileLayer('http://tile.openstreetmap.jp/{z}/{x}/{y}.png').addTo(map);
+    }
 </script>

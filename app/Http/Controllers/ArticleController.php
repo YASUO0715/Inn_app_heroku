@@ -29,29 +29,6 @@ class ArticleController extends Controller
         return view('colorlib-search-1.index');
     }
 
-    public function sample(Request $request)
-    {
-        return view('colorlib-search-1.sample');
-    }
-
-    public function distance_matrix(Request $request)
-    {
-        $address = $request->address;
-        $latitude = $request->latitude;
-        $longitude = $request->longitude;
-
-        return view('colorlib-search-1.distance_matrix', compact('latitude', 'longitude', 'address'));
-    }
-
-    public function store_locator(Request $request)
-    {
-        return view('store-locator.index');
-    }
-
-    public function test_sort(Request $request)
-    {
-        return view('colorlib-search-1.test_sort');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -78,8 +55,10 @@ class ArticleController extends Controller
                 DB::raw('6370 * ACOS(COS(RADIANS(' . $latitude . ')) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $longitude . ')) 
         + SIN(RADIANS(' . $latitude . ')) * SIN(RADIANS(latitude))) as distance')
             )
-                ->orderBy('distance');       
+                ->orderBy('distance');
         }
+
+
         if (!empty($caption)) {
             $query->where('caption', 'like', '%' . $caption . '%');
         }
@@ -90,11 +69,11 @@ class ArticleController extends Controller
             });
         }
 
-        if (!empty($status)) {
-            $query->whereHas('status', function ($q) use ($status) {
-                $q->where('name', 'like', '%' . $status . '%');
-            });
-        }
+        // if (!empty($status)) {
+        //     $query->whereHas('status', function ($q) use ($status) {
+        //         $q->where('name', 'like', '%' . $status . '%');
+        //     });
+        // }
         //N問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
         $articles = $query->with('attachments', 'status')->get();
         // $articles->appends(compact('caption', 'category', 'status'));
@@ -118,8 +97,9 @@ class ArticleController extends Controller
         // 最初に表示したい座標(今回は東京タワー)
         // $latitude = $request->lat;
         // $longitude = $request->lng;
-        $latitude = 35.658584;
-        $longitude = 139.7454316;
+
+        $latitude = 0;
+        $longitude = 0;
         $zoom = 10;
         return view('articles.create', compact('latitude', 'longitude', 'zoom'));
     }
