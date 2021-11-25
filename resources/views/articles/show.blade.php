@@ -20,7 +20,9 @@
                             <article class="w-full px-px md:w-2/4 text-xl text-gray-800 leading-normal">
                                 {{-- <td><img src="{{ $url }}" width="100%"></td>
                                 <td><img src="{{ $url }}" width="100%"></td> --}}
-                                <td><a href="{{ $url }}" data-lightbox="group"><img src="{{ $url }}" width="300" height="300"></a><td>
+                                <td><a href="{{ $url }}" data-lightbox="group"><img src="{{ $url }}" width="300"
+                                            height="300"></a>
+                                <td>
                             </article>
                             @endforeach
                         </tr>
@@ -77,13 +79,13 @@
 
             var target = document.getElementById('map'); //マップを表示する要素を指定
             var address = '{{ $article->address }}'; //住所を指定
-            var geocoder = new google.maps.Geocoder();
+            var geocoder = new google.maps.Geocoder
 
             geocoder.geocode({
                 address: address
             }, function(results, status) {
                 if (status === 'OK' && results[0]) {
-
+                    console.log(results)
                     console.log(results[0].geometry.location);
 
                     var map = new google.maps.Map(target, {

@@ -75,66 +75,107 @@ console.log(lng);
 </form>
 
 <main class='flex flex-wrap'>
-<article class=" w-full lg:w-1/2 px-4 md:w-1/4">
-<section class="row position-relative logo" >
-    @foreach ($articles as $article)
-    @if ($article->status->name === "◎")
-    <div class="col-6 col-md-4 col-lg-3 col-sl-2 mb-4">
-        <article class="card position-relative">
-            <img src="{{ $article->image_url }}" class="card-img-top">
-            <div class="card-title mx-3">
-                {{ round($article->distance, 1) }} km<br>
-                <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
-                    {{ $article->caption }} <br>
-                    {{-- 当日の対応状況 : {{ $article->status->name }}<br> --}}
-                    金額:{{ $article->price }} 円
-                </a>
+    <article class=" w-full lg:w-1/2 px-4 md:w-1/4">
+        <section class="row position-relative logo">
+            @foreach ($articles as $article)
+            @if ($article->status->name === "◎")
+            <div class="col-6 logo">
+                <article class="card position-relative" >
+                    <img src="{{ $article->image_url }}" class="card-img-top" >
+                    <div class="card-title mx-3">
+                        {{ round($article->distance, 1) }} km<br>
+                        <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
+                            {{ $article->caption }} <br>
+                            {{-- 当日の対応状況 : {{ $article->status->name }}<br> --}}
+                            金額: <b> ¥{{ $article->price }} </b>/人
+                        </a>
+                    </div>
+                </article>
             </div>
-        </article>
-    </div>
-    @endif
-    @endforeach
-</section>
-</article>
-<aside class='w-full lg:w-1/2'>
-<div id="map" style="width: 100%; height: 1000px;">
-</div>
+            @endif
+            @endforeach
+        </section>
+    </article>
 
-<script>
-    function initMap() {
 
-            var target = document.getElementById('map'); //マップを表示する要素を指定
-            var address = '{{ $article->address }}'; //住所を指定
-            var geocoder = new google.maps.Geocoder();
 
-            geocoder.geocode({
-                address: address
-            }, function(results, status) {
-                if (status === 'OK' && results[0]) {
+    <aside class='w-full lg:w-1/2'>
+        <div id="map" style="width: 100%; height: 1000px;">
+        </div>
 
-                    console.log(results[0].geometry.location);
+        <script>
+            function sleep(waitMsec) {
+                var startMsec = new Date();
+                // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+                while (new Date() - startMsec < waitMsec);
+            }
+            
+            var Address = [];
+            var Price = [];
+            var map;
+            var marker = [];
+            var infoWindow = [];
 
-                    var map = new google.maps.Map(target, {
-                        center: results[0].geometry.location,
-                        zoom: 10
-                    });
+            function initMap() {
+        
+                var target = document.getElementById('map'); //マップを表示する要素を指定
+                var address = @json($articles);
+                var geocoder = new google.maps.Geocoder;
 
-                    var marker = new google.maps.Marker({
-                        position: results[0].geometry.location,
-                        map: map,
-                        animation: google.maps.Animation.DROP
-                    });
-
-                } else {
-                    //住所が存在しない場合の処理
-                    alert('住所が正しくないか存在しません。');
-                    target.style.display = 'none';
+                for (let index = 0; index < address.length; index++) {
+                    Address[index] = address[index].address;
                 }
-            });
-        }
-</script>
-<script src="//maps.google.com/maps/api/js?key={{ config('services.google-map.apikey') }}&callback=initMap"></script>
-</aside>
+
+                for (let index = 0; index < address.length; index++) {
+                    Price[index] = address[index].price;
+                }
+
+                console.log(Address);
+
+                for (let r = 0; r < 1; r++) {
+                    geocoder.geocode({
+                        address: Address[r],
+                    }, function(results, status) {
+                        if (status === "OK" && results[0]){
+                            console.log(results)
+                            console.log(Address[r]);
+
+                            if (r == 0) {
+                                map = new google.maps.Map(target, {
+                                    center: results[r].geometry.location,
+                                    zoom: 12
+                                });
+                            }
+
+                            marker[r] = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map,
+                                animation: google.maps.Animation.DROP
+                            });
+                            infoWindow[r] = new google.maps.InfoWindow({ // 吹き出しの追加
+                                content: '<div class="sample">' + Price[r] + '円</div>' // 吹き出しに表示する内容
+                            });
+                            infoWindow[r].open(map, marker[r]);
+                            // markerEvent(r);
+
+                        } else {
+                            console.log(status)
+                            //住所が存在しない場合の処理
+                            alert('住所が正しくないか存在しません。');
+                            target.style.display = 'none';
+                        }
+                    });
+                }
+            };
+            function markerEvent(i) {
+                marker[i].addListener('click', function() { // マーカーをクリックしたとき
+                    infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+                });
+            }
+        </script>
+        <script src="//maps.google.com/maps/api/js?key={{ config('services.google-map.apikey') }}&callback=initMap">
+        </script>
+    </aside>
 </main>
 
 
