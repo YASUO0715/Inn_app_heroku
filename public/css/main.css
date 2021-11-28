@@ -90,3 +90,8 @@ input[type="submit"]{
     border: none;
     background-color: transparent;
 }
+
+.scroll{
+  height: 80px;
+  overflow: auto;
+}

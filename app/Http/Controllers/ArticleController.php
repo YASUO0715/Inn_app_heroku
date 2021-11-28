@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 
 
+
 class ArticleController extends Controller
 {
 

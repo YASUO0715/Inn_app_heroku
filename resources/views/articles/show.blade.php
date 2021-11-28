@@ -20,9 +20,11 @@
                             <article class="w-full px-px md:w-2/4 text-xl text-gray-800 leading-normal">
                                 {{-- <td><img src="{{ $url }}" width="100%"></td>
                                 <td><img src="{{ $url }}" width="100%"></td> --}}
+                                <div class="slider">
                                 <td><a href="{{ $url }}" data-lightbox="group"><img src="{{ $url }}" width="300"
                                             height="300"></a>
                                 <td>
+                                </div>
                             </article>
                             @endforeach
                         </tr>
@@ -60,6 +62,7 @@
                             <td>{{ $article->price }}円</td>
                             <br>
                         </tr>
+                    
                     </figcaption>
                 </div>
             </div>
@@ -96,7 +99,8 @@
                     var marker = new google.maps.Marker({
                         position: results[0].geometry.location,
                         map: map,
-                        animation: google.maps.Animation.DROP
+                        animation: google.maps.Animation.DROP,
+                        icon: href="{{ asset('images/icon8.png') }}",
                     });
 
                 } else {

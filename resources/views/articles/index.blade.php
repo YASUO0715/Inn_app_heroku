@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title', '')
 
+ 
 {{--
 <meta charset="utf-8">
 <style>
@@ -74,6 +75,7 @@ console.log(lng);
     <input type="hidden" name="lng" value="lng" id="lng">
 </form>
 
+
 <main class='flex flex-wrap'>
     <article class=" w-full lg:w-1/2 px-4 md:w-1/4">
         <section class="row position-relative logo">
@@ -81,7 +83,9 @@ console.log(lng);
             @if ($article->status->name === "◎")
             <div class="col-6 logo">
                 <article class="card position-relative" >
+                    <div class="slider">
                     <img src="{{ $article->image_url }}" class="card-img-top" >
+                    </div>
                     <div class="card-title mx-3">
                         {{ round($article->distance, 1) }} km<br>
                         <a href="{{ route('articles.show', $article) }}" class="text-decoration-none stretched-link">
@@ -132,7 +136,7 @@ console.log(lng);
 
                 console.log(Address);
 
-                for (let r = 0; r < 1; r++) {
+                for (let r = 0; r < 11; r++) {
                     geocoder.geocode({
                         address: Address[r],
                     }, function(results, status) {
@@ -150,10 +154,11 @@ console.log(lng);
                             marker[r] = new google.maps.Marker({
                                 position: results[0].geometry.location,
                                 map: map,
-                                animation: google.maps.Animation.DROP
+                                animation: google.maps.Animation.DROP,
+                                icon: href="{{ asset('images/icon8.png') }}",
                             });
                             infoWindow[r] = new google.maps.InfoWindow({ // 吹き出しの追加
-                                content: '<div class="sample">' + Price[r] + '円</div>' // 吹き出しに表示する内容
+                                content: '<div class="sample">' + Price[r] + '¥</div>' // 吹き出しに表示する内容
                             });
                             infoWindow[r].open(map, marker[r]);
                             // markerEvent(r);
@@ -172,6 +177,7 @@ console.log(lng);
                     infoWindow[i].open(map, marker[i]); // 吹き出しの表示
                 });
             }
+            
         </script>
         <script src="//maps.google.com/maps/api/js?key={{ config('services.google-map.apikey') }}&callback=initMap">
         </script>

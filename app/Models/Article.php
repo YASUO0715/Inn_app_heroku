@@ -23,6 +23,13 @@ class Article extends Model
         'status_id'
     ];
 
+    public $appends = [
+        'image_url',
+        
+    ];
+
+    
+
     public function user()
     {
         return $this->hasOne(\App\Models\User::class);

@@ -44,6 +44,8 @@ class ArticleController extends Controller
 
 
         $query = Article::query();
+        // $result =DB::class;
+        // return $result;
 
         if (!empty($latitude)) {
             $query->select(
