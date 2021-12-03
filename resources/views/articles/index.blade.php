@@ -115,7 +115,7 @@ console.log(lng);
             }
             
             var Address = [];
-            var Price = [];
+            var Caption = [];
             var map;
             var marker = [];
             var infoWindow = [];
@@ -131,7 +131,7 @@ console.log(lng);
                 }
 
                 for (let index = 0; index < address.length; index++) {
-                    Price[index] = address[index].price;
+                    Caption[index] = address[index].caption;
                 }
 
                 console.log(Address);
@@ -158,7 +158,7 @@ console.log(lng);
                                 icon: href="{{ asset('images/icon8.png') }}",
                             });
                             infoWindow[r] = new google.maps.InfoWindow({ // 吹き出しの追加
-                                content: '<div class="sample">' + Price[r] + '¥</div>' // 吹き出しに表示する内容
+                                content: '<div class="sample">' + Caption[r] // 吹き出しに表示する内容
                             });
                             infoWindow[r].open(map, marker[r]);
                             // markerEvent(r);
