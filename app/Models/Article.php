@@ -15,9 +15,20 @@ class Article extends Model
         'caption',
         'info',
         'phone_number',
+        'address',
+        'price',
+        'latitude',
+        'longitude',
         'category_id',
         'status_id'
     ];
+
+    public $appends = [
+        'image_url',
+        
+    ];
+
+    
 
     public function user()
     {

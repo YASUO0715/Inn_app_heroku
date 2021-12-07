@@ -11,6 +11,8 @@ use App\Http\Requests\ArticleRequest;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
+
 
 
 class ArticleController extends Controller
@@ -24,8 +26,10 @@ class ArticleController extends Controller
 
     public function top(Request $request)
     {
+
         return view('colorlib-search-1.index');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,14 +37,30 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $caption = $request->caption;
+        // $caption = $request->caption;
+        // $address = $request->address;
+        // $cur_lat = $request->lat;
+        // $cur_lng = $request->lng;
         $category = $request->category;
         $status = $request->status;
+        $latitude = $request->lat;
+        $longitude = $request->lng;
+
+
 
         $query = Article::query();
 
-        if (!empty($caption)) {
+        if (!empty($latitude)) {
+            $query->select(
+                '*',
+                DB::raw('6370 * ACOS(COS(RADIANS(' . $latitude . ')) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(' . $longitude . ')) 
+        + SIN(RADIANS(' . $latitude . ')) * SIN(RADIANS(latitude))) as distance')
+            )
+                ->orderBy('distance');
+        }
 
+
+        if (!empty($caption)) {
             $query->where('caption', 'like', '%' . $caption . '%');
         }
 
@@ -50,23 +70,22 @@ class ArticleController extends Controller
             });
         }
 
-        if (!empty($status)) {
-            $query->whereHas('status', function ($q) use ($status) {
-                $q->where('name', 'like', '%' . $status . '%');
-            });
-        }
-        //N+1問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
-        $articles = $query->with('attachments','status')->paginate(30);
-        $articles->appends(compact('caption', 'category', 'status'));
+        // if (!empty($status)) {
+        //     $query->whereHas('status', function ($q) use ($status) {
+        //         $q->where('name', 'like', '%' . $status . '%');
+        //     });
+        // }
+        //N問題のため使用 本来無くてもINN_App内では動くがApi側で使う時はリレーションを定義したモデルがないためwithの中に入れる必要あり。
+        $articles = $query->with('attachments', 'status')->get();
+        // $articles->appends(compact('caption', 'category', 'status'));
 
         $self_article = "";
         if (!empty(Auth::user())) {
             $self_article = Auth::user()->article;
         }
 
-        // $articles = Article::all();
         // dd($articles);
-        return view('articles.index', compact('articles', 'caption', 'self_article'));
+        return view('articles.index', compact('articles', 'latitude', 'longitude'));
     }
 
     /**
@@ -74,10 +93,16 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // 最初に表示したい座標(今回は東京タワー)
+        // $latitude = $request->lat;
+        // $longitude = $request->lng;
 
-        return view('articles.create');
+        $latitude = 0;
+        $longitude = 0;
+        $zoom = 10;
+        return view('articles.create', compact('latitude', 'longitude', 'zoom'));
     }
 
     /**
@@ -154,7 +179,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $latitude = $article->latitude;
+        $longitude = $article->longitude;
+        $zoom = 12;
+        return view('articles.show', compact('article', 'latitude', 'longitude', 'zoom'));
     }
 
     /**
@@ -165,7 +193,11 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $latitude = $article->latitude;
+        $longitude = $article->longitude;
+        $zoom = 12;
+
+        return view('articles.edit', compact('article', 'latitude', 'longitude', 'zoom'));
     }
 
     /**
@@ -220,5 +252,10 @@ class ArticleController extends Controller
         return redirect()
             ->route('articles.index')
             ->with(['flash_message' => '削除が完了しました']);
+    }
+
+    public function test(Request $request)
+    {
+        return view('colorlib-search-1.index');
     }
 }
